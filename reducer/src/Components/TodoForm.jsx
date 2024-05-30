@@ -8,7 +8,7 @@ const TodoForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (task.trim() === '') return;
-    dispatch({ type: 'ADD_TODO', payload: { task } });
+    dispatch({ type: 'ADD_TODO', payload: { id: Date.now(), task } });
     setTask('');
   };
 

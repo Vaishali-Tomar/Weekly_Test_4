@@ -1,43 +1,14 @@
-import React, { createContext, useReducer } from 'react';
+import React from 'react';
 
-const TodoContext = createContext();
-
-const initialState = {
-  todos: [],
-  searchQuery: '',
-};
-
-const todoReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return { ...state, todos: [...state.todos, action.payload] };
-    case 'UPDATE_TODO':
-      return {
-        ...state,
-        todos: state.todos.map(todo => 
-          todo.id === action.payload.id ? action.payload : todo
-        ),
-      };
-    case 'DELETE_TODO':
-      return {
-        ...state,
-        todos: state.todos.filter(todo => todo.id !== action.payload),
-      };
-    case 'SET_SEARCH_QUERY':
-      return { ...state, searchQuery: action.payload };
-    default:
-      return state;
-  }
-};
-
-const TodoProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(todoReducer, initialState);
-
+const ModeToggle = ({ darkMode, setDarkMode }) => {
   return (
-    <TodoContext.Provider value={{ state, dispatch }}>
-      {children}
-    </TodoContext.Provider>
+    <button
+      onClick={() => setDarkMode(!darkMode)}
+      className="py-2 px-4 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-100 rounded"
+    >
+      {darkMode ? 'Light Mode' : 'Dark Mode'}
+    </button>
   );
 };
 
-export { TodoContext, TodoProvider };
+export default ModeToggle;
